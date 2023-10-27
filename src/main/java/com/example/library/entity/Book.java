@@ -1,5 +1,5 @@
 package com.example.library.entity;
-
+//
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,12 +14,12 @@ public class Book {
     @Id
     @Column(name = "id")
     private int id;
-    @Column(name = "nameBook")
-    private String nameBook;
-    @Column(name = "genreBook")
-    private String genreBook;
-    @Column(name = "ratingBook")
-    private int ratingBook;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "genre")
+    private String genre;
+    @Column(name = "rating")
+    private int rating;
     @Column(name = "author")
     private String author;
 
@@ -28,9 +28,9 @@ public class Book {
 
     public Book(int id, String nameBook, String genreBook, int ratingBook, String author) {
 
-        this.nameBook = nameBook;
-        this.genreBook = genreBook;
-        this.ratingBook = ratingBook;
+        this.name = nameBook;
+        this.genre = genreBook;
+        this.rating = ratingBook;
         this.author = author;
     }
 
@@ -42,28 +42,28 @@ public class Book {
         this.id = id;
     }
 
-    public String getNameBook() {
-        return nameBook;
+    public String getName() {
+        return name;
     }
 
-    public void setNameBook(String nameBook) {
-        this.nameBook = nameBook;
+    public void setName(String nameBook) {
+        this.name = nameBook;
     }
 
-    public String getGenreBook() {
-        return genreBook;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setGenreBook(String genreBook) {
-        this.genreBook = genreBook;
+    public void setGenre(String genreBook) {
+        this.genre = genreBook;
     }
 
-    public int getRatingBook() {
-        return ratingBook;
+    public int getRating() {
+        return rating;
     }
 
-    public void setRatingBook(int ratingBook) {
-        this.ratingBook = ratingBook;
+    public void setRating(int ratingBook) {
+        this.rating = ratingBook;
     }
     public void setAuthor(String author) {
         this.author = author;
@@ -86,21 +86,21 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && ratingBook == book.ratingBook && Objects.equals(nameBook, book.nameBook) && Objects.equals(genreBook, book.genreBook) && Objects.equals(author, book.author);
+        return id == book.id && rating == book.rating && Objects.equals(name, book.name) && Objects.equals(genre, book.genre) && Objects.equals(author, book.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameBook, genreBook, ratingBook, author);
+        return Objects.hash(id, name, genre, rating, author);
     }
 
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", nameBook='" + nameBook + '\'' +
-                ", genreBook='" + genreBook + '\'' +
-                ", ratingBook=" + ratingBook +
+                ", nameBook='" + name + '\'' +
+                ", genreBook='" + genre + '\'' +
+                ", ratingBook=" + rating +
                 ", author='" + author + '\'' +
                 '}';
     }

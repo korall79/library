@@ -1,43 +1,41 @@
 package com.example.library.service;
 
-import com.example.library.dao.BookDAO;
+import com.example.library.dao.DAO;
 import com.example.library.entity.Book;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 
-@Service   //соединяет контроллер и ДАО
-public class BookServiceImpl implements BookService{
-    private final BookDAO bookDAO;
+@org.springframework.stereotype.Service   //соединяет контроллер и ДАО
+public class BookServiceImpl implements Service {
+    private final DAO bookDAO;
 
-    public BookServiceImpl(BookDAO bookDAO) {
+    public BookServiceImpl(DAO bookDAO) {
         this.bookDAO = bookDAO;
     }
 
     @Override
     @Transactional           //открывает и закрывает транзакции
-    public List<Book> getAllBook() {
-        return bookDAO.getAllBook();
+    public List<Book> getAll() {
+        return bookDAO.getAll();
     }
 
-//    @Override
-//    @Transactional
-//    public void saveBook(Book employee) {
-//        bookDAO.saveEmployee(book);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public Book getBook(int id) {
-//        return bookDAO.getEmployee(id);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public void deleteBook(int id) {
-//        bookDAO.deleteEmployee(id);
-//    }
+    @Override
+    @Transactional
+    public void save(Book book) {
+        bookDAO.save(book);
+    }
+
+    @Override
+    @Transactional
+    public Book get(int id) {
+        return bookDAO.get(id);
+    }
+
+    @Override
+    @Transactional
+    public void delete(int id) {
+        bookDAO.delete(id);
+    }
 }

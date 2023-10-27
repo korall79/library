@@ -2,8 +2,7 @@ package com.example.library.controller;
 
 
 import com.example.library.entity.Book;
-
-import com.example.library.service.BookService;
+import com.example.library.service.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,10 +11,10 @@ import java.util.List;
 @RequestMapping("/api")
 public class MyRESTController {
 
-    private final BookService bookService;
+    private final Service bookService;
    // private final AuthorService authorService;
 
-    public MyRESTController(BookService bookService) {
+    public MyRESTController(Service bookService) {
         this.bookService = bookService;
    //     this.authorService = authorService;
     }
@@ -31,32 +30,32 @@ public class MyRESTController {
 //        return allAuthor;
 //    }
 
-//    @GetMapping("/book/{id}")
-//    public Book getBook(@PathVariable int id) {
-//        Book book = bookService.getBook(id);
-//        return book;
-//    }
-//
-//    @PostMapping("/book")//добавление нового работника
-//    public Book addNewBook(@RequestBody Book book) {
-//
-//        BookService.saveBook(book);
-//        return book;
-//    }
-//
-//    @PutMapping("/book")
-//    public Book updateBook(@RequestBody Book book) {
-//        bookService.saveBook(book);
-//        return book;
-//
-//    }
-//
-//    @DeleteMapping("/book/{id}")
-//    public String deleteBook(@PathVariable int id) {
-//
-//        bookService.deleteBook(id);
-//        return "Employee with ID = " + id + " was deleted.";
-//
-//    }
+    @GetMapping("/books/{id}")
+    public Book getBook(@PathVariable int id) {
+        Book book = bookService.getBook(id);
+        return book;
+    }
+
+    @PostMapping("/books")//добавление новой книги
+    public Book addNewBook(@RequestBody Book book) {
+
+        bookService.saveBook(book);
+        return book;
+    }
+
+    @PutMapping("/books")
+    public Book updateBook(@RequestBody Book book) {
+        bookService.saveBook(book);
+        return book;
+
+    }
+
+    @DeleteMapping("/books/{id}")
+    public String deleteBook(@PathVariable int id) {
+
+        bookService.deleteBook(id);
+        return "Employee with ID = " + id + " was deleted.";
+
+    }
 
 }
