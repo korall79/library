@@ -13,5 +13,5 @@ public interface Service <T> {
     //public Book get  (int id);
     Optional<T> get(int id);
 
-    public void delete(int id);
+//    public void delete(int id);
 }

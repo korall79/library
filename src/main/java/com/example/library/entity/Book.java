@@ -1,10 +1,7 @@
 package com.example.library.entity;
 //
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -20,18 +17,18 @@ public class Book {
     private String genre;
     @Column(name = "rating")
     private int rating;
-    @Column(name = "author")
-    private String author;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id")
+    private Author author;
 
     public Book() {
     }
 
-    public Book(int id, String nameBook, String genreBook, int ratingBook, String author) {
-
-        this.name = nameBook;
-        this.genre = genreBook;
-        this.rating = ratingBook;
-        this.author = author;
+    public Book(String name, String genre, int rating) {
+        this.name = name;
+        this.genre = genre;
+        this.rating = rating;
     }
 
     public int getId() {
@@ -46,62 +43,41 @@ public class Book {
         return name;
     }
 
-    public void setName(String nameBook) {
-        this.name = nameBook;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getGenre() {
         return genre;
     }
 
-    public void setGenre(String genreBook) {
-        this.genre = genreBook;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public int getRating() {
         return rating;
     }
 
-    public void setRating(int ratingBook) {
-        this.rating = ratingBook;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-    public String getAuthor() {
+
+    public Author getAuthor() {
         return author;
     }
 
-//    public Author getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(Author author) {
-//        this.author = author;
-//    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return id == book.id && rating == book.rating && Objects.equals(name, book.name) && Objects.equals(genre, book.genre) && Objects.equals(author, book.author);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, genre, rating, author);
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", nameBook='" + name + '\'' +
-                ", genreBook='" + genre + '\'' +
-                ", ratingBook=" + rating +
-                ", author='" + author + '\'' +
+                ", name='" + name + '\'' +
+                ", genre='" + genre + '\'' +
+                ", rating=" + rating +
                 '}';
     }
 }

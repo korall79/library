@@ -1,42 +1,47 @@
-//package com.example.library.service;
-//
-//import com.example.library.dao.AuthorDAO;
-//import com.example.library.entity.Author;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import java.util.List;
-//
-//@Service
-//public class AuthorServiceImpl implements AuthorService {
-//    private final AuthorDAO authorDAO;
-//
-//    public AuthorServiceImpl(AuthorDAO authorDAO) {
-//        this.authorDAO = authorDAO;
+package com.example.library.service;
+
+import com.example.library.dao.DAO;
+import com.example.library.entity.Author;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+
+@org.springframework.stereotype.Service
+public class AuthorServiceImpl implements Service<Author> {
+    private final DAO authorDAO;
+
+    public AuthorServiceImpl(@Qualifier("authorDAOImpl") DAO authorDAO) {
+        this.authorDAO = authorDAO;
+    }
+    @Override
+    @Transactional           //открывает и закрывает транзакции
+    public List<Author> getAll() {
+        return authorDAO.getAll();
+    }
+
+
+    @Override
+    @Transactional
+    public void save(Author author) {
+      authorDAO.save(author);
+    }
+
+    // @Override
+    @Transactional
+    // public Book get(int id) {
+
+    @Override
+    public Optional<Author> get(int id) {
+        return authorDAO.get(id);
+
+    }
+
+//    @Override
+//    @Transactional
+//    public void delete(int id) {
+//        bookDAO.delete(id);
 //    }
-//
-//@Override
-//    @Transactional           //открывает и закрывает транзакции
-//    public List<Author> getAllAuthor() {
-//        return authorDAO.getAllAuthor();
-//    }
-//
-////    @Override
-////    @Transactional
-////    public void saveAuthor(Author employee) {
-////        bookDAO.saveEmployee(book);
-////    }
-////
-////    @Override
-////    @Transactional
-////    public Book getBook(int id) {
-////        return bookDAO.getEmployee(id);
-////    }
-////
-////    @Override
-////    @Transactional
-////    public void deleteBook(int id) {
-////        bookDAO.deleteEmployee(id);
-////    }
-//}
+
+}

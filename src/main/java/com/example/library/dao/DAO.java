@@ -21,10 +21,10 @@ public interface DAO<T> {
       */
     Optional<T> get(int id);
 
-    /**
-     * удаляет книгу по id
-     */
-     void delete(int id);
+//    /**
+//     * удаляет книгу по id
+//     */
+//     void delete(int id);
 
 
 }

@@ -12,10 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class BookDAOImpl implements DAO {
+public class BookDAOImpl implements DAO<Book> {
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * возвращает список всех
+     */
     @Override
     public List<Book> getAll() {
         Query query = entityManager.createQuery("from Book");
@@ -23,23 +26,29 @@ public class BookDAOImpl implements DAO {
         return allBook;
     }
 
+    /**
+     * создание  и изменение имеющейся
+     */
     @Override
     public void save(Book book) {
         Book newBook = entityManager.merge(book);
         book.setId(newBook.getId());
-
     }
-        @Override
-        public Optional<Book> get (int id){
-            Book book = entityManager.find(Book.class, id);
-            return Optional.ofNullable(book);
-        }
 
-        @Override
-        public void delete(int id){
-            Query query = entityManager.createQuery("delete from Book " +
-                    "where id =:bookId");
-            query.setParameter("bookId", id);
-            query.executeUpdate(); //отвечает за изменение и удаление
-        }
+    /**
+     * возвращает объект по id
+     */
+    @Override
+    public Optional<Book> get(int id) {
+        Book book = entityManager.find(Book.class, id);
+        return Optional.ofNullable(book);
     }
+
+//        @Override
+//        public void delete(int id){
+//            Query query = entityManager.createQuery("delete from Book " +
+//                    "where id =:bookId");
+//            query.setParameter("bookId", id);
+//            query.executeUpdate(); //отвечает за изменение и удаление
+//        }
+}
