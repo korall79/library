@@ -1,47 +1,54 @@
 package com.example.library.service;
 
-import com.example.library.dao.DAO;
+import com.example.library.dao.AuthorsRepository;
 import com.example.library.entity.Author;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@org.springframework.stereotype.Service
-public class AuthorServiceImpl implements Service<Author> {
-    private final DAO authorDAO;
+@Service
+public class AuthorServiceImpl implements AuthorService {
 
-    public AuthorServiceImpl(@Qualifier("authorDAOImpl") DAO authorDAO) {
-        this.authorDAO = authorDAO;
+    private final AuthorsRepository authorsRepository;
+
+    public AuthorServiceImpl(AuthorsRepository authorsRepository) {
+        this.authorsRepository = authorsRepository;
     }
+
+    /**
+     * получение всех авторов
+     */
     @Override
-    @Transactional           //открывает и закрывает транзакции
-    public List<Author> getAll() {
-        return authorDAO.getAll();
+    public List<Author> getAllAuthor() {
+        return authorsRepository.findAll();
     }
 
+
+    /**
+     * добавляем нового автора
+     */
+    @Override
+    public void saveAuthor(Author author) {
+        authorsRepository.save(author);
+    }
+
+    /**
+     * получение автора по айди
+     */
+    @Override
+    public Author getAuthor(int id) {
+        Author author = null;
+        Optional<Author> optionalAuthor = authorsRepository.findById(id);
+        if (optionalAuthor.isPresent()) {
+            author = optionalAuthor.get();
+        }
+        return author;
+    }
 
     @Override
-    @Transactional
-    public void save(Author author) {
-      authorDAO.save(author);
+    public void deleteAuthor(int id) {
+        authorsRepository.deleteById(id);
     }
-
-    // @Override
-    @Transactional
-    // public Book get(int id) {
-
-    @Override
-    public Optional<Author> get(int id) {
-        return authorDAO.get(id);
-
-    }
-
-//    @Override
-//    @Transactional
-//    public void delete(int id) {
-//        bookDAO.delete(id);
-//    }
 
 }

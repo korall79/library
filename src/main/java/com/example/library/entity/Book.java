@@ -1,15 +1,13 @@
 package com.example.library.entity;
-//
 
 import jakarta.persistence.*;
-
-import java.util.Objects;
 
 @Entity
 @Table(name="books")
 public class Book {
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // @Column(name = "id")
     private int id;
     @Column(name = "name")
     private String name;
@@ -18,14 +16,12 @@ public class Book {
     @Column(name = "rating")
     private int rating;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "author_id")
-    private Author author;
 
     public Book() {
     }
 
-    public Book(String name, String genre, int rating) {
+    public Book( String name, String genre, int rating) {
+       // this.id = id;
         this.name = name;
         this.genre = genre;
         this.rating = rating;
@@ -63,13 +59,6 @@ public class Book {
         this.rating = rating;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
 
     @Override
     public String toString() {

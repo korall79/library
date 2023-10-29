@@ -1,48 +1,54 @@
 package com.example.library.service;
 
-import com.example.library.dao.DAO;
+import com.example.library.dao.BooksRepository;
 import com.example.library.entity.Book;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 
-@org.springframework.stereotype.Service   //соединяет контроллер и ДАО
-public class BookServiceImpl implements Service<Book> {
-    private final DAO bookDAO;
+@Service   //соединяет контроллер и ДАО
+public class BookServiceImpl implements BookService {
 
-    public BookServiceImpl(@Qualifier("bookDAOImpl") DAO bookDAO) {
-        this.bookDAO = bookDAO;
+    private final BooksRepository booksRepository;
+
+    public BookServiceImpl(BooksRepository booksRepository) {
+        this.booksRepository = booksRepository;
+    }
+
+    /**
+     * получем все книги
+     */
+    @Override
+    public List<Book> getAllBook() {
+        return booksRepository.findAll();
+    }
+
+    /**
+     * добавляем новую книгу
+     */
+    @Override
+    public void saveBook(Book book) {
+        booksRepository.save(book);
+    }
+
+    /**
+     * получаем книгу по айди
+     */
+    @Override
+    public Book getBook(int id) {
+        Book book = null;
+        Optional<Book> optionalBook = booksRepository.findById(id);
+        if (optionalBook.isPresent()) {
+            book = optionalBook.get();
+        }
+        return book;
     }
 
     @Override
-    @Transactional           //открывает и закрывает транзакции
-    public List<Book> getAll() {
-        return bookDAO.getAll();
+    public void deleteBook(int id) {
+        booksRepository.deleteById(id);
     }
 
-
-    @Override
-    @Transactional
-    public void save(Book book) {
-        bookDAO.save(book);
-    }
-
-   // @Override
-    //@Transactional
-   // public Book get(int id) {
-
-    @Override
-    public Optional<Book> get(int id) {
-        return bookDAO.get(id);
-
-    }
-
-//    @Override
-//    @Transactional
-//    public void delete(int id) {
-//        bookDAO.delete(id);
-//    }
 }
