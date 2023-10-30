@@ -12,7 +12,8 @@ public class Book {
     @Column(name = "name")
     private String name;
     @Column(name = "genre")
-    private String genre;
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
     @Column(name = "rating")
     private int rating;
 
@@ -20,7 +21,7 @@ public class Book {
     public Book() {
     }
 
-    public Book( String name, String genre, int rating) {
+    public Book( String name, Genre genre, int rating) {
        // this.id = id;
         this.name = name;
         this.genre = genre;
@@ -43,11 +44,19 @@ public class Book {
         this.name = name;
     }
 
-    public String getGenre() {
+//    public String getGenre() {
+//        return genre;
+//    }
+//
+//    public void setGenre(String genre) {
+//        this.genre = genre;
+//    }
+
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
