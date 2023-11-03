@@ -1,0 +1,94 @@
+#databaseChangeLog:
+#  - logicalFilePath: db/changelog/db.changelog-lesson1.yaml
+#  - changeSet:
+#      id: 1
+#      author: your_liquibase_username
+#      changes:
+#        - createTable:
+#            tableName: authors
+#            columns:
+#              - column:
+#                  name: id
+#                  type: BIGINT
+#                  autoIncrement: true
+#                  constraints:
+#                    primaryKey: true
+#                    nullable: false
+#              - column:
+#                  name: name
+#                  type: varchar(50)
+#                  constraints:
+#                    unique: true
+#                    nullable: false
+#              - column:
+#                  name: passport
+#                  type: int
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: country
+#                  type: varchar(50)
+#  - changeSet:
+#      id: 2
+#      author: your_liquibase_name
+#      comment: "Create admin author"
+#      changes:
+#        - insert:
+#            tableName: authors
+#            columns:
+#              - column:
+#                  name: name
+#                  value: "Alis"
+#              - column:
+#                  name: passport
+#                  value: 1234
+#              - column:
+#                  name: country
+#                  value: "RF"
+#        - insert:
+#            tableName: authors
+#            columns:
+#              - column:
+#                  name: name
+#                  value: "Oleg"
+#              - column:
+#                  name: passport
+#                  value: 7894
+#              - column:
+#                  name: country
+#                  value: "RF"
+#  - changeSet:
+#      id: 1
+#      author: your_liquibase_username
+#      changes:
+#        - createTable:
+#            tableName: books
+#            columns:
+#              - column:
+#                  name: id
+#                  type: BIGINT
+#                  autoIncrement: true
+#                  constraints:
+#                    primaryKey: true
+#                    nullable: false
+#              - column:
+#                  name: name
+#                  type: varchar(50)
+#                  constraints:
+#                    unique: true
+#                    nullable: false
+#              - column:
+#                  name: genre
+#                  type: int
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: rating
+#                  type: int
+#              - column:
+#                  name: author_id
+#                  type: int
+#      rollback:
+#        - delete:
+#            tableName: authors
+#            where: name in ('Alis', 'Oleg')

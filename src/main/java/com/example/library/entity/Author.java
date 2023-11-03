@@ -2,16 +2,13 @@ package com.example.library.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import static jakarta.persistence.GenerationType.UUID;
+import java.util.*;
 
 @Entity
-@Table(name = "authors")
-//@Table(name = "authors", indexes = {@Index(columnList="passport", unique = true)})
+//@Table(name = "authors")
+@Table(name = "authors", indexes = {@Index(columnList="passport", unique = true)})
 public class Author {
+
     @Id
    /// @GeneratedValue(strategy = UUID)
     @Column(name = "id")
@@ -29,10 +26,8 @@ public class Author {
     @JoinColumn(name = "author_id")
     private List<Book> bk;
 
-
     public Author() {
     }
-
     public Author(int id, String nameAuthor, int passport, String country) {
         this.id = id;
         this.nameAuthor = nameAuthor;
@@ -41,7 +36,7 @@ public class Author {
     }
 
     public void addBookToAuthor(Book book) {
-        if (bk == null) {
+        if(bk == null )  {
             bk = new ArrayList<>();
         }
         bk.add(book);
@@ -59,7 +54,7 @@ public class Author {
         return nameAuthor;
     }
 
-    public void setNameAuthor(String nameAuthor) {
+    public void setNameAuthor() {
         this.nameAuthor = nameAuthor;
     }
 
@@ -97,3 +92,4 @@ public class Author {
                 '}';
     }
 }
+
